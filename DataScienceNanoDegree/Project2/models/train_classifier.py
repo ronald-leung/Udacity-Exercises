@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
+from sklearn.multioutput import MultiOutputClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -41,7 +42,7 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('clf', RandomForestClassifier())
+        ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
 
     return pipeline
@@ -73,6 +74,9 @@ def main():
         print('Training model...')
         model.fit(X_train, Y_train)
 
+        '''
+        These were the original parameters used to run GridSearch and it takes forever. Picking only the best estimates 
+        from the initial run. 
         parameters = {
             'vect__ngram_range': ((1, 1), (1, 2)),
             'vect__max_df': (0.5, 0.75, 1.0),
@@ -81,21 +85,29 @@ def main():
             'clf__n_estimators': [50, 100, 200],
             'clf__min_samples_split': [2, 3, 4]
         }
+        '''
+
+        parameters = {
+            'vect__ngram_range': [(1, 2)],
+            'vect__max_df': [0.5],
+            'vect__max_features': [5000],
+            'tfidf__use_idf': (True, False)
+        }
 
         cv = GridSearchCV(model, param_grid=parameters)
 
         import datetime
         print("Start time is: ", datetime.datetime.now())
-        cv.fit(X_train, Y_train[:, 0])
+        cv.fit(X_train, Y_train)
         print("End time is: ", datetime.datetime.now())
         y_pred = model.predict(X_test)
-        classification_report(Y_test[:, 0], y_pred, target_names=["related-0","related-1","related-2"])
+        print(cv.best_estimator_)
         
         print('Evaluating model...')
-        evaluate_model(model, X_test, Y_test, category_names)
+        evaluate_model(cv, X_test, Y_test, category_names)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
-        save_model(model, model_filepath)
+        save_model(cv, model_filepath)
 
         print('Trained model saved!')
 
