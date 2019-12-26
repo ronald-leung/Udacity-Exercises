@@ -44,7 +44,7 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=partial(tokenize))),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+        ('clf', MultiOutputClassifier(RandomForestClassifier(n_estimators=20)))
     ])
 
     return pipeline
@@ -52,11 +52,8 @@ def build_model():
 def evaluate_model(model, X_test, Y_test, category_names):
     y_pred = model.predict(X_test)
     for i in range(0, len(category_names)):
-        targetName = []
-        for j in range(0, len(pd.Series(Y_test[:,i]).value_counts())):
-            targetName.append(category_names[i] + "-" + str(j))
-
-        print(classification_report(Y_test[:, i], y_pred[:, i], target_names=targetName))
+        print("Report for column " + category_names[i] + "\n" + classification_report(Y_test[:, i], y_pred[:, i]))
+        print("\n")
 
 
 def save_model(model, model_filepath):
@@ -69,7 +66,7 @@ def main():
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y, category_names = load_data(database_filepath)
-        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
+        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
         
         print('Building model...')
         model = build_model()
@@ -103,7 +100,7 @@ def main():
         print("Start time is: ", datetime.datetime.now())
         cv.fit(X_train, Y_train)
         print("End time is: ", datetime.datetime.now())
-        y_pred = model.predict(X_test)
+
         print(cv.best_estimator_)
         
         print('Evaluating model...')
