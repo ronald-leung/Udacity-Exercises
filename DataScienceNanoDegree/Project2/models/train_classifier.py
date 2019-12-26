@@ -13,6 +13,8 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.metrics import classification_report
+from functools import partial
+from sklearn.externals import joblib
 import nltk
 
 nltk.download(['punkt', 'wordnet'])
@@ -40,7 +42,7 @@ def tokenize(text):
 
 def build_model():
     pipeline = Pipeline([
-        ('vect', CountVectorizer(tokenizer=tokenize)),
+        ('vect', CountVectorizer(tokenizer=partial(tokenize))),
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
@@ -58,7 +60,8 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    pickle.dump(model, open(model_filepath, 'wb'))
+    # pickle.dump(model, open(model_filepath, 'wb'))
+    joblib.dump(model, open(model_filepath, 'wb'))
 
 
 def main():
