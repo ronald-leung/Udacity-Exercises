@@ -25,11 +25,10 @@ You will need Python 3.7+, and you may need to install the following libraries i
         This folder contains the python script use to build the machine learning model
 
 ### About the data:
-    - The data are spread into two files. 
-       - The message file "disaster_messages.csv" contains the raw text of the message. Each message is marked by an id that can be used to link with the category data.
-       - The category file contains the marked category for each message.
-    As part of these project we will join the two files into one data store.
-        
+   - The data are spread into two files. 
+      - The message file "disaster_messages.csv" contains the raw text of the message. Each message is marked by an id that can be used to link with the category data.
+      - The category file contains the marked category for each message.
+    As part of these project we will join the two files into one data store.        
 
 ### Instructions to run the application:
 1. Run the following commands in the project's root directory to set up your database and model.
