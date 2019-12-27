@@ -15,8 +15,7 @@ You will need Python 3.7+, and you may need to install the following libraries i
         machine learning model to classify a message
         
    - data
-        This folder contains the raw data for this project. The message file contains the raw text of the message, and the category file contains the marked data for these messages.
-        We will use this data to train the machine learning model.
+        This folder contains the raw data for this project. See the next sections for more details about the data
         
    - jupyter
         This folder contains various Jupyter notebooks used to analyze the data and build the machine learning model. The commands used here are same as the python scripts used
@@ -26,7 +25,11 @@ You will need Python 3.7+, and you may need to install the following libraries i
         This folder contains the python script use to build the machine learning model
 
 ### About the data:
-
+    - The data are spread into two files. 
+       - The message file "disaster_messages.csv" contains the raw text of the message. Each message is marked by an id that can be used to link with the category data.
+       - The category file contains the marked category for each message.
+    As part of these project we will join the two files into one data store.
+        
 
 ### Instructions to run the application:
 1. Run the following commands in the project's root directory to set up your database and model.
