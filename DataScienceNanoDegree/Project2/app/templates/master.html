@@ -23,7 +23,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="https://www.udacity.com/">Made with Udacity</a></li>
-                <li><a href="https://github.com/">Contact</a></li>
+                <li><a href="https://github.com/ronald-leung/Udacity-Exercises/tree/develop/DataScienceNanoDegree/Project2">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -58,13 +58,31 @@
             <h1 class="text-center">Overview of Training Dataset</h1>
         </div>
 
-        <h4>The following diagram shows an overview of the available data we have, versus the model's F1 score.
+        <h4>The following diagram shows an overview of the available data we have, and also the resulting machine learning model's F1 score.
+            You can see that for some categories, we have about 20,000 rows of data, but for other categories, we barely have any.
+            The high F1 score are likely misleading due to the lack of positive data.
         </h4>
         <img class="img-thumbnail" src="/static/img/Available Data vs F1 score.png">
 
-        <h4>This graph shows some other stuff.
+        <h4> This is a similar graph, displaying out of the twenty or so thousand of records, what percentage of the trained data actually have the category marked as positive.
+            You can see that for the column with the highest amount of positive data, it is over 80% of the data. You can see the trend line of the F1 score as the percentage
+            of positive data decreases.
         </h4>
         <img class="img-thumbnail" src="/static/img/Percentage vs F1 score.png"/>
+
+        <h4>
+            It's also interesting to see how the data was trained. One way is just to take a look at what words are appearing in the messages for each category.
+            The following are word cloud generated for various categories, this is the one for messages marked as "earthquake".
+        </h4>
+        <img class="img-thumbnail" src="/static/img/wordcloud_earthquake.png"/>
+
+        <h4>This is the word cloud for "aid_related".</h4>
+        <img class="img-thumbnail" src="/static/img/wordcloud_aid_related.png"/>
+
+        <h4>And this is the word cloud for "related". To see the python code and the Jupyter notebook for generating this word cloud, see the
+            <a href="https://github.com/ronald-leung/Udacity-Exercises/tree/develop/DataScienceNanoDegree/Project2">Github repo</a>.
+        </h4>
+        <img class="img-thumbnail" src="/static/img/wordcloud_related.png"/>
 
     {% endblock %}
 
