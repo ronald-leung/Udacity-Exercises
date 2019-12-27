@@ -5,9 +5,8 @@ This folder contains files for Project #2 for Udacity's Data Scientist nano degr
 a machine learning model that would be able to classify various attributes of a message, such as whether it's related to a weather, shelter, aid, or other categories.
 
 ### Pre-requisite
-You will need Python 3.7+, and you may need to install the following libraries if it's not there already:
-    'pip install pandas'
-    'pip install plotly'
+You will need Python 3.7+, and you may need to install some libraries if it's not already installed in your environment.:
+    'pip install -r requirements.txt'
     
 ### Project contents:
    - app
