@@ -1,6 +1,7 @@
 import json
 import plotly
 import pandas as pd
+import numpy as np
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -39,31 +40,51 @@ model = joblib.load("../models/classifier.pkl")
 def index():
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
-    
-    # create visuals
-    # TODO: Below is an example - modify to create your own visuals
+    # Visual 1: Number of categories per message.
+    df["numCategory"] = np.sum(df[[item for item in df.columns if item not in ['id', 'message', 'original', 'genre']]], axis=1)
+    numCatHist = pd.DataFrame(df["numCategory"].value_counts())
+    numCatHist = numCatHist.reset_index()
+    numCatHist.columns = ["Total Category Points", "Message Count"]
+    numCatHist = numCatHist.sort_values("Total Category Points")
+
+    # Visual 2: Number of categories available
+    cat_available = np.sum(df[[item for item in df.columns if item not in ['numCategory', 'id', 'message', 'original', 'genre']]]).sort_values(ascending=False)
+
     graphs = [
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=numCatHist["Total Category Points"],
+                    y=numCatHist["Message Count"]
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Histogram of message category count',
                 'yaxis': {
-                    'title': "Count"
+                    'title': "Message Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "# of categories"
                 }
             }
-        }
+        },
+        {
+            'data': [
+                Bar(
+                    x=cat_available.index,
+                    y=cat_available
+                )
+            ],
+
+            'layout': {
+                'title': 'Available message count by category',
+                'yaxis': {
+                    'title': "Message count"
+                }
+            }
+        },
+
     ]
     
     # encode plotly graphs in JSON

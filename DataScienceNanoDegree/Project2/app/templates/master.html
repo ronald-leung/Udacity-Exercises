@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+<!--    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
@@ -57,9 +58,26 @@
         <div class="page-header">
             <h1 class="text-center">Overview of Training Dataset</h1>
         </div>
+        <h4> Below are various graphics that provides an overview of the data set that we have. In this message data set, each message can be marked for 0 to 36 different categories. How many categories does each message get marked for?
+            Here is a histogram showing the number of messages that are marked. As you can see below, the majority have none or only a handful of categories marked.
+        </h4>
+        <div id="graph-0" style="padding-bottom:100">
 
-        <h4>The following diagram shows an overview of the available data we have, and also the resulting machine learning model's F1 score.
-            You can see that for some categories, we have about 20,000 rows of data, but for other categories, we barely have any.
+        </div>
+
+        <div class="row">
+            <div class="col-12 description"><h2>&nbsp;</h2></div>
+        </div>
+        <h4>
+            Another statistics we should understand is how much positive / negative data we have for each category. The following is a diagram, showing for each category, how many messages are marked with a non-zero value. We can see that
+            we have a fair amount of data marked as "related", "aid-related" and etc. While for some other categories we have barely any positive data.
+        </h4>
+        <div id="graph-1"></div>
+        <div class="row">
+            <div class="col-12 description"><h2>&nbsp;</h2></div>
+        </div>
+
+        <h4>Let's polish that diagram up a bit, and also include the resulting machine learning model's F1 score.
             The high F1 score are likely misleading due to the lack of positive data.
         </h4>
         <img class="img-thumbnail" src="/static/img/Available Data vs F1 score.png">
@@ -87,7 +105,7 @@
     {% endblock %}
 
     {% for id in ids %}
-        <div id="{{id}}"></div>
+<!--        <div id="{{id}}"></div>-->
     {% endfor %}
 </div>
 
