@@ -1,0 +1,4 @@
+bottleneck_features/*
+dogImages/*
+lfw/*
+*.ipynb_checkpoints*
