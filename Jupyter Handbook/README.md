@@ -11,12 +11,19 @@ Use of the following:
 - .isnull().sum() // How many rows have null values in each column
 - .isnull().sum(axis=1) // How many rows have at least one null value
 - forward and backfill
+- Data filtering
 
 ## Data Transforming
 - To Do
+- Index manipulation
+- Get Dummies
+- Unstack
+https://nikgrozev.com/2015/07/01/reshaping-in-pandas-pivot-pivot-table-stack-and-unstack-explained-with-pictures/
+- Math formulas (Pearson correlation, show )
 
 ## Data Plotting
 - To Do
 
 ## Python String Manipulation
 - To Do
+
